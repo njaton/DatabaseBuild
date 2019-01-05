@@ -49,9 +49,9 @@ public class build1
 			Connection conn = getConnection();	
 			PreparedStatement create = conn.prepareStatement("CREATE TABLE IF NOT EXISTS"
 					+ " `DB1`.`SnakeSpecies` (\n"  
-					+ "  `idnew_table` INT NOT NULL AUTO_INCREMENT,\n" 
+					+ "  `id` INT NOT NULL AUTO_INCREMENT,\n" 
 					+ "  `Species` VARCHAR(255) NULL,\n" 
-					+ "  PRIMARY KEY (`idnew_table`));" );
+					+ "  PRIMARY KEY (`id`));" );
 			create.executeUpdate();
 		}
 		catch(Exception e)
@@ -120,5 +120,35 @@ public class build1
 			System.out.print("Venom was updated");
 			System.out.print("col built");
 		}
+	}
+	
+	/**
+	 * Adds a new column for color
+	 * @throws Exception
+	 */
+	public static void addColor() throws Exception 
+	{
+		Connection conn = getConnection();
+		
+		try 
+		{
+			PreparedStatement temp = conn.prepareStatement("select count(Color) \n"
+				+ "from db1.SnakeSpecies \n");
+			
+			ResultSet rs = temp.executeQuery();
+			System.out.println(rs);
+			System.out.print("Color is in table");
+		}
+		
+		catch(Exception e)
+		{
+			PreparedStatement loc = conn.prepareStatement("ALTER TABLE "
+					+ "DB1.SnakeSpecies \n"
+					+ "ADD COLUMN Color VARCHAR(45) AFTER Venom;");
+			loc.executeUpdate();
+			System.out.print("Color was updated");
+			System.out.print("col built");
+		}
+		
 	}
 }

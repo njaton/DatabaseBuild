@@ -13,7 +13,14 @@ public class main {
 		build1.table();
 		build1.addLoc();
 		build1.addVenom();
+		build1.addColor();
 		
-		DataFill.parsing();
+		UserInt.waiting();
+	}
+	
+	public static void exit()
+	{
+		System.out.println("Closing Now");
+		System.exit(0);
 	}
 }
