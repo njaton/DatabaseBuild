@@ -23,7 +23,7 @@ public class UserInt
 			String command = user_input.nextLine();
 			if (command.equals("add"))
 			{
-				DataFill.parsing();
+				addData();
 			}
 			
 			if (command.equals("close"))
@@ -56,6 +56,37 @@ public class UserInt
 		if (command.equals("Y"))
 		{
 			DataFill.dataDelete();
+		}
+		else
+		{
+			waiting();
+		}
+	}
+	
+	/**
+	 * Allows the user to build rows at once.
+	 * @throws Exception
+	 */
+	public static void addData() throws Exception
+	{
+		Scanner user_input = new Scanner(System.in);
+		System.out.println("How many species would you like to add");
+		String command = user_input.next();
+		
+		int commandInt = Integer.parseInt(command);
+		
+		if (commandInt == 1)
+		{
+			DataFill.parsing();
+			waiting();
+		}
+		else if (commandInt > 1) 
+		{
+			for (int i = 0; i < commandInt; i++)
+			{
+				DataFill.parsing();
+			}
+			waiting();
 		}
 		else
 		{

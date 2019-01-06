@@ -38,5 +38,4 @@ public class Build1Test {
 		build1 newBuild = new build1();
 		newBuild.addColor();
 	}
-
 }
