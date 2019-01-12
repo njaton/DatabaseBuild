@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
 import java.sql.ResultSet;
+import java.io.*;
 
 /**
  * This class will hold the method that fills in data based
@@ -78,6 +79,38 @@ public class DataFill
 		{
 			System.out.println(e);
 		}		
+	}
+	
+	/**
+	 * Gets the users file location
+	 */
+	public static void txtAdd() throws Exception
+	{ 
+		System.out.println("Entered Textfile");
+		Scanner user_input = new Scanner(System.in);
+		
+		System.out.println("Please enter your text location");
+		String Location = user_input.nextLine();
+		
+		String data = readFile(Location);
+	}
+	
+	/**
+	 * Reads the file into a string and print contents 
+	 */
+	public static String readFile(String Location) throws Exception
+	{
+		File fileLoc = new File(Location);
+		BufferedReader b = new BufferedReader(new FileReader(fileLoc));
+		
+		String dataString; 
+		
+		System.out.println("Data will be displayed below");
+		while((dataString = b.readLine()) != null)
+		{
+			System.out.println(dataString);
+		}
+		return dataString;
 	}
 	
 	/**

@@ -23,7 +23,7 @@ public class UserInt
 			String command = user_input.nextLine();
 			if (command.equals("add"))
 			{
-				addData();
+				whichAdd();
 			}
 			
 			if (command.equals("close"))
@@ -58,6 +58,33 @@ public class UserInt
 			DataFill.dataDelete();
 		}
 		else
+		{
+			waiting();
+		}
+	}
+	
+	/**
+	 * Determine if the user wants to add by .txt file or input. 
+	 * @throws Exception
+	 */
+	public static void whichAdd() throws Exception 
+	{
+		Scanner user_input = new Scanner(System.in);
+		System.out.println("Would you like to add from .txt file or by user input? (file / input)"
+				+ "\nElse press anything to be sent to main menu");
+		String option = user_input.next();
+		
+		if (option.equals("file"))
+		{
+			DataFill.txtAdd();
+			waiting();
+		}
+		else if (option.equals("input"))
+		{
+			addData();
+			waiting();
+		}
+		else 
 		{
 			waiting();
 		}
