@@ -169,7 +169,6 @@ public class DataFill
 			}
 			tempCounter = tempCounter + 1; 
 		}
-		//	/Users/nick/Desktop/Java/testingDocSnakeDatabase.txt/
 	}
 	
 	/**
