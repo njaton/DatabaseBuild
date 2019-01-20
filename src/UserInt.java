@@ -101,7 +101,7 @@ public class UserInt
 		String command = user_input.next();
 		
 		int commandInt = Integer.parseInt(command);
-		
+		String Caller = "";
 		if (commandInt == 1)
 		{
 			DataFill.parsing();

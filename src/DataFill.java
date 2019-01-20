@@ -17,14 +17,15 @@ public class DataFill
 	 * Gets the data from the user so that it can be entered into the database. 
 	 * @return dataString 
 	 */
-	public static String getString()
+	private static String getString()
 	{
+		String dataString;
 		Scanner user_input = new Scanner(System.in);
 		
 		System.out.println("Please input data in the following format"
 				+ "\nSpecies,Location,Venom,Color" );
 		
-		String dataString = user_input.nextLine();
+		dataString = user_input.nextLine();
 		return dataString;
 	}
 	
@@ -33,7 +34,7 @@ public class DataFill
 	 * @throws Exception
 	 */
 	public static void parsing() throws Exception
-	{
+	{	
 		String preProcessed = getString();
 		String a = "";
 		String b = "";
@@ -93,10 +94,12 @@ public class DataFill
 		String Location = user_input.nextLine();
 		
 		String data = readFile(Location);
+		fileParse(data);
+		UserInt.waiting();
 	}
 	
 	/**
-	 * Reads the file into a string and print contents 
+	 * Reads the file into a string and prints data.
 	 */
 	public static String readFile(String Location) throws Exception
 	{
@@ -104,13 +107,69 @@ public class DataFill
 		BufferedReader b = new BufferedReader(new FileReader(fileLoc));
 		
 		String dataString; 
+		String store = "";
 		
 		System.out.println("Data will be displayed below");
 		while((dataString = b.readLine()) != null)
 		{
 			System.out.println(dataString);
+			store += dataString;
 		}
-		return dataString;
+		return store;
+	}
+	
+	/**
+	 * Builds the SQL to upload the data from the txt file. 
+	 */
+	private static void fileParse(String incomingData) throws Exception
+	{
+		String txtData = incomingData;
+		System.out.println(txtData);
+		String a = "";
+		String b = "";
+		String c = "";
+		String d = "";
+		
+		Connection conn = build1.getConnection();
+		
+		String[] token = txtData.split(",");
+		
+		int tempCounter = 1;
+		for (String temp: token)
+		{
+			if (tempCounter == 1)
+			{
+				a = temp;
+			}
+			else if (tempCounter == 2)
+			{
+				b = temp; 
+			}
+			else if (tempCounter == 3)
+			{
+				c = temp; 
+			}
+			else if (tempCounter == 4)
+			{
+				d = temp;
+				try 
+				{
+					PreparedStatement filling = conn.prepareStatement("INSERT INTO "
+							+ "DB1.SnakeSpecies(Species, Location, Venom, Color)"
+							+ " VALUES('" + a +"','" + b + "','" + c + "','" + d + "');");
+					
+					System.out.println(filling);
+					filling.executeUpdate();
+				}
+				catch (Exception e)
+				{
+					System.out.println(e);
+				}
+				tempCounter = 0;
+			}
+			tempCounter = tempCounter + 1; 
+		}
+		//	/Users/nick/Desktop/Java/testingDocSnakeDatabase.txt/
 	}
 	
 	/**
